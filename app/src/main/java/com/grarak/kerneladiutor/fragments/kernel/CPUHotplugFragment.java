@@ -24,6 +24,7 @@ import com.grarak.kerneladiutor.fragments.ApplyOnBootFragment;
 import com.grarak.kerneladiutor.fragments.RecyclerViewFragment;
 import com.grarak.kerneladiutor.utils.Utils;
 import com.grarak.kerneladiutor.utils.kernel.cpu.CPUFreq;
+import com.grarak.kerneladiutor.utils.kernel.cpuhotplug.AiOHotPlug;
 import com.grarak.kerneladiutor.utils.kernel.cpuhotplug.AlucardHotplug;
 import com.grarak.kerneladiutor.utils.kernel.cpuhotplug.AutoSmp;
 import com.grarak.kerneladiutor.utils.kernel.cpuhotplug.BluPlug;
@@ -64,7 +65,10 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
     @Override
     protected void addItems(List<RecyclerViewItem> items) {
         mEnableViews.clear();
-
+        
+        if (AiOHotPlug.supported()) {
+            aioHotplugInit(items);
+        }
         if (MPDecision.supported()) {
             mpdecisionInit(items);
         }
@@ -138,6 +142,98 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
         mEnableViews.add(mpdecision);
     }
 
+   private void aioHotplugInit(List<RecyclerViewItem> items) {
+        List<RecyclerViewItem> aiohotplug = new ArrayList<>();
+
+        TitleView title = new TitleView();
+        title.setText(getString(R.string.aiohotplug));
+
+        if (AiOHotPlug.hasAiOHotPlugEnable()) {
+            SwitchView enable = new SwitchView();
+            enable.setTitle(getString(R.string.aiohotplug));
+            enable.setSummary(getString(R.string.aiohotplug_summary));
+            enable.setChecked(AiOHotPlug.isAiOHotPlugEnabled());
+            enable.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+                @Override
+                public void onChanged(SwitchView switchView, boolean isChecked) {
+                    AiOHotPlug.enableAiOHotPlug(isChecked, getActivity());
+                }
+            });
+
+            aiohotplug.add(enable);
+            mEnableViews.add(enable);
+        }
+
+
+        if (AiOHotPlug.hasAiOHotPlugOnlineCores()) {
+            SeekBarView onlineCores = new SeekBarView();
+            onlineCores.setTitle(getString(R.string.online_cpu_cores));
+            onlineCores.setSummary(getString(R.string.online_cpu_cores_summary));
+            onlineCores.setMax(4);
+            onlineCores.setMin(1);
+            onlineCores.setProgress(AiOHotPlug.getAiOHotPlugOnlineCores() - 1);
+            onlineCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    AiOHotPlug.setAiOHotPlugOnlineCores(position + 1, getActivity());
+                }
+            });
+
+            aiohotplug.add(onlineCores);
+        }
+        
+         if (AiOHotPlug.hasAiOHotPlugBigCores()) {
+            SeekBarView bigCores = new SeekBarView();
+            bigCores.setTitle(getString(R.string.big_cpu_cores));
+            bigCores.setSummary(getString(R.string.big_cpu_cores_summary));
+            bigCores.setMax(CPUFreq.getCpuCount() - 4);
+            bigCores.setMin(0);
+            bigCores.setProgress(AiOHotPlug.getAiOHotPlugBigCores() - 1);
+            bigCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    AiOHotPlug.setAiOHotPlugBigCores(position + 1, getActivity());
+                }
+            });
+            aiohotplug.add(bigCores);
+        }
+        
+        if (AiOHotPlug.hasAiOHotPlugLittleCores()) {
+            SeekBarView littleCores = new SeekBarView();
+            littleCores.setTitle(getString(R.string.little_cpu_cores));
+            littleCores.setSummary(getString(R.string.little_cpu_cores_summary));
+            littleCores.setMax(4);
+            littleCores.setMin(0);
+            littleCores.setProgress(AiOHotPlug.getAiOHotPlugLittleCores() - 1);
+            littleCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    AiOHotPlug.setAiOHotPlugLittleCores(position + 1, getActivity());
+                }
+            });
+            aiohotplug.add(littleCores);
+        }
+
+        if (aiohotplug.size() > 0) {
+            aiohotplug.add(title);
+            items.addAll(aiohotplug);
+        }
+    }
+   
+   
+   
     private void intelliPlugInit(List<RecyclerViewItem> items) {
         List<RecyclerViewItem> intelliplug = new ArrayList<>();
 

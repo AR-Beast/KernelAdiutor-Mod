@@ -205,6 +205,14 @@
     <string name="hotplug_warning">More than one hotplugging system is enabled!\nPlease only use one.</string>
     <string name="mpdecision">MPDecision</string>
     <string name="mpdecision_summary">Qualcomm\'s hotplugging solution. You might get problems with changing frequencies when this is enabled.</string>
+    <string name="aiohotplug">AiO HotPlug</string>
+    <string name="aiohotplug_summary">n All in One HotPlug, developed by Shoaib Anwar a.k.a. Shoaib0597, for all main types of SoCs.</string>
+    <string name="online_cpu_cores">Number of Online Cores</string>
+    <string name="online_cpu_cores_summary">.</string>
+    <string name="big_cpu_cores">big Cluster</string>    
+    <string name="big_cpu_cores_summary">Set the Number of Online Cores. At value 0, the entire Cluster will be switched off</string>    
+    <string name="little_cpu_cores">LITTLE Cluster</string>    
+    <string name="little_cpu_cores_summary">Set the Number of Online Cores. At value 0, the entire Cluster will be switched off.</string>    
     <string name="intelliplug">IntelliPlug</string>
     <string name="intelliplug_summary">An in-kernel replacement for Qualcomm\'s MPDecision. Developed by faux123.</string>
     <string name="cpu_hotplug_profile_summary">The number in the parentheses indicates the amount of cores online at any time.</string>
