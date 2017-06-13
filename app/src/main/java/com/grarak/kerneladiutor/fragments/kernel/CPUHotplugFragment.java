@@ -171,7 +171,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             onlineCores.setSummary(getString(R.string.online_cpu_cores_summary));
             onlineCores.setMax(4);
             onlineCores.setMin(1);
-            onlineCores.setProgress(AiOHotPlug.getAiOHotPlugOnlineCores() - 1);
+            onlineCores.setProgress(AiOHotPlug.getAiOHotPlugOnlineCores());
             onlineCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
                 @Override
                 public void onMove(SeekBarView seekBarView, int position, String value) {
@@ -179,7 +179,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
 
                 @Override
                 public void onStop(SeekBarView seekBarView, int position, String value) {
-                    AiOHotPlug.setAiOHotPlugOnlineCores(position + 1, getActivity());
+                    AiOHotPlug.setAiOHotPlugOnlineCores(position, getActivity());
                 }
             });
 
@@ -192,7 +192,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             bigCores.setSummary(getString(R.string.big_cpu_cores_summary));
             bigCores.setMax(CPUFreq.getCpuCount() - 4);
             bigCores.setMin(0);
-            bigCores.setProgress(AiOHotPlug.getAiOHotPlugBigCores() - 1);
+            bigCores.setProgress(AiOHotPlug.getAiOHotPlugBigCores());
             bigCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
                 @Override
                 public void onMove(SeekBarView seekBarView, int position, String value) {
@@ -200,7 +200,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
 
                 @Override
                 public void onStop(SeekBarView seekBarView, int position, String value) {
-                    AiOHotPlug.setAiOHotPlugBigCores(position + 1, getActivity());
+                    AiOHotPlug.setAiOHotPlugBigCores(position, getActivity());
                 }
             });
             aiohotplug.add(bigCores);
@@ -212,7 +212,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             littleCores.setSummary(getString(R.string.little_cpu_cores_summary));
             littleCores.setMax(4);
             littleCores.setMin(0);
-            littleCores.setProgress(AiOHotPlug.getAiOHotPlugLittleCores() - 1);
+            littleCores.setProgress(AiOHotPlug.getAiOHotPlugLittleCores());
             littleCores.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
                 @Override
                 public void onMove(SeekBarView seekBarView, int position, String value) {
@@ -220,7 +220,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
 
                 @Override
                 public void onStop(SeekBarView seekBarView, int position, String value) {
-                    AiOHotPlug.setAiOHotPlugLittleCores(position + 1, getActivity());
+                    AiOHotPlug.setAiOHotPlugLittleCores(position, getActivity());
                 }
             });
             aiohotplug.add(littleCores);
