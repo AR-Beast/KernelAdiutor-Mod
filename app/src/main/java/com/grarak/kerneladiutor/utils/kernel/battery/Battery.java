@@ -36,9 +36,10 @@ public class Battery {
     private static final String FORCE_FAST_CHARGE = "/sys/kernel/fast_charge/force_fast_charge";
     private static final String BLX = "/sys/devices/virtual/misc/batterylifeextender/charging_limit";
 
-    private static final String CHARGE_RATE = "/sys/kernel/thundercharge_control";
-    private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/enabled";
+    private static final String CHARGE_RATE = "/sys/kernel/Quick_Charge";
+    private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/QC_Toggle";
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
+    private static final String DYNAMIC_CURRENT = CHARGE_RATE + "/Dynamic_Current";
 
     private static Integer sCapacity;
 
@@ -52,6 +53,10 @@ public class Battery {
 
     public static boolean hasChargingCurrent() {
         return Utils.existFile(CUSTOM_CURRENT);
+    }
+    
+    public static int getDc() {
+        return Utils.strToInt(Utils.readFile(DYNAMIC_CURRENT));
     }
 
     public static void enableChargeRate(boolean enable, Context context) {
