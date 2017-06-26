@@ -39,6 +39,7 @@
             android:summary="@string/accent_color" />
         <SwitchPreferenceCompat
             android:key="section_icons"
+            android:defaultValue="true"
             android:summary="@string/section_icons_summary"
             android:title="@string/section_icons" />
     </PreferenceCategory>
