@@ -19,6 +19,13 @@
  */
 package com.grarak.kerneladiutor.fragments.kernel;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import com.grarak.kerneladiutor.utils.kernel.cpu.CPUFreq;
+import com.grarak.kerneladiutor.views.recyclerview.overallstatistics.TemperatureView;
+import android.os.BatteryManager;
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.fragments.ApplyOnBootFragment;
 import com.grarak.kerneladiutor.fragments.DescriptionFragment;
@@ -30,6 +37,7 @@ import com.grarak.kerneladiutor.utils.kernel.thermal.Thermald;
 import com.grarak.kerneladiutor.views.recyclerview.RecyclerViewItem;
 import com.grarak.kerneladiutor.views.recyclerview.SeekBarView;
 import com.grarak.kerneladiutor.views.recyclerview.SelectView;
+import com.grarak.kerneladiutor.views.recyclerview.StatsView;
 import com.grarak.kerneladiutor.views.recyclerview.SwitchView;
 
 import java.util.ArrayList;
@@ -39,6 +47,10 @@ import java.util.List;
  * Created by willi on 12.05.16.
  */
 public class ThermalFragment extends RecyclerViewFragment {
+	
+    private StatsView mCPUFreq;
+    private TemperatureView mTemperature;
+    private double mBatteryRaw;
 
     @Override
     protected void init() {
@@ -51,6 +63,14 @@ public class ThermalFragment extends RecyclerViewFragment {
 
     @Override
     protected void addItems(List<RecyclerViewItem> items) {
+		    
+        mCPUFreq = new StatsView();
+        mCPUFreq.setTitle("CPU MAX FREQUENCY");
+        items.add(mCPUFreq);
+   
+		mTemperature = new TemperatureView();
+        items.add(mTemperature);
+        
         if (Thermald.supported()) {
             thermaldInit(items);
         }
@@ -773,5 +793,28 @@ public class ThermalFragment extends RecyclerViewFragment {
 
 
     }
-
+    @Override
+    protected void refresh() {
+        super.refresh();
+        if (mCPUFreq != null) {
+			int cpu = (MSMThermal.getCPU() / 1000);
+            mCPUFreq.setStat(String.valueOf(cpu)  + getString(R.string.mhz));
+        }
+        if (mTemperature != null) {
+            mTemperature.setBattery(mBatteryRaw);
+        }
+        
+    }
+   private BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mBatteryRaw = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10D;
+        }
+    };
+    
+        @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
 }
