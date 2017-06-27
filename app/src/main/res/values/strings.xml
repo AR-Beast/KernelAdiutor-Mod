@@ -562,7 +562,10 @@
     <string name="blx_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100.</string>
     <string name="charge_rate">Quick Charge</string>
     <string name="charging_current">Quick Charge Max Current</string>
-    <string name="charging_current_summary">Set the maximum charging current which quick charge can utilize. Note: Reconnect your charger after changing this value.</string>
+    <string name="charging_current_summary">Set the maximum charging current which quick charge can utilize from AC outlet.</string>
+    <string name="usb_charging_current">USB Current</string>
+    <string name="usb_charging_current_summary">Set the constant USB charging current which quick charge can utilize from USB outlet.</string>
+
 
     <!-- LED -->
     <string name="fade">Fade</string>

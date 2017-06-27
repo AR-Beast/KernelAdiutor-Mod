@@ -40,6 +40,7 @@ public class Battery {
     private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/QC_Toggle";
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
     private static final String DYNAMIC_CURRENT = CHARGE_RATE + "/Dynamic_Current";
+    private static final String USB_CUSTOM_CURRENT = CHARGE_RATE + "/USB_Current";
 
     private static Integer sCapacity;
 
@@ -54,6 +55,19 @@ public class Battery {
     public static boolean hasChargingCurrent() {
         return Utils.existFile(CUSTOM_CURRENT);
     }
+    
+    public static void setUSBChargingCurrent(int value, Context context) {
+        run(Control.write(String.valueOf(value), USB_CUSTOM_CURRENT), USB_CUSTOM_CURRENT, context);
+    }
+
+    public static int getUSBChargingCurrent() {
+        return Utils.strToInt(Utils.readFile(USB_CUSTOM_CURRENT));
+    }
+
+    public static boolean hasUSBChargingCurrent() {
+        return Utils.existFile(USB_CUSTOM_CURRENT);
+    }
+    
     
     public static int getDc() {
         return Utils.strToInt(Utils.readFile(DYNAMIC_CURRENT));

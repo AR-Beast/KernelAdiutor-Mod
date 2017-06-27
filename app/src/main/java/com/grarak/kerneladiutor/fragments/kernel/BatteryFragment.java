@@ -160,7 +160,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             chargingCurrent.setSummary(getString(R.string.charging_current_summary));
             chargingCurrent.setUnit(getString(R.string.ma));
             chargingCurrent.setMax(1500);
-            chargingCurrent.setMin(1250);
+            chargingCurrent.setMin(100);
             chargingCurrent.setOffset(10);
             chargingCurrent.setProgress(Battery.getChargingCurrent() / 10 - 10);
             chargingCurrent.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
@@ -175,6 +175,29 @@ public class BatteryFragment extends RecyclerViewFragment {
             });
 
             chargeRateCard.addItem(chargingCurrent);
+        }
+        
+         if (Battery.hasUSBChargingCurrent()) {
+            SeekBarView usbchargingCurrent = new SeekBarView();
+            usbchargingCurrent.setTitle(getString(R.string.usb_charging_current));
+            usbchargingCurrent.setSummary(getString(R.string.usb_charging_current_summary));
+            usbchargingCurrent.setUnit(getString(R.string.ma));
+            usbchargingCurrent.setMax(1000);
+            usbchargingCurrent.setMin(100);
+            usbchargingCurrent.setOffset(10);
+            usbchargingCurrent.setProgress(Battery.getUSBChargingCurrent() / 10 - 10);
+            usbchargingCurrent.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    Battery.setUSBChargingCurrent((position + 10) * 10, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            chargeRateCard.addItem(usbchargingCurrent);
         }
 
         if (chargeRateCard.size() > 0) {
