@@ -17,7 +17,7 @@
  * along with Kernel Adiutor.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.grarak.kerneladiutor.utils.kernel.misc;
+package com.grarak.kerneladiutor.utils.kernel.wakelock;
 
 import android.content.Context;
 import android.support.annotation.StringRes;

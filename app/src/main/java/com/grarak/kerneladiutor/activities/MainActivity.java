@@ -212,7 +212,6 @@ public class MainActivity extends BaseActivity {
 
             // Assign core ctl min cpu
             CPUFreq.sCoreCtlMinCpu = Prefs.getInt("core_ctl_min_cpus_big", 2, MainActivity.this);
-
             Device.CPUInfo.load();
             Device.Input.supported();
             Device.MemInfo.load();
