@@ -659,6 +659,8 @@
 
     <!-- Misc -->
     <string name="android_logger">Android logging</string>
+    <string name="selinux">SELinux Mode</string>
+    <string name="selinux_summary">Currently:</string>
     <string name="crc">Software CRC control</string>
     <string name="crc_summary">CRC is a mechanism aiming to prevent data corruption when enabled. Data blocks can lose up to 30% of their performance.</string>
     <string name="fsync">Fsync</string>

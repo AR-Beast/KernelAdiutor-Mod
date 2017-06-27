@@ -61,6 +61,9 @@ public class MiscFragment extends RecyclerViewFragment {
         if (Misc.hasLoggerEnable()) {
             loggerInit(items);
         }
+        if (Misc.hasSeLinux()) {
+            selinuxInit(items);
+        }
         if (Misc.hasCrc()) {
             crcInit(items);
         }
@@ -123,6 +126,20 @@ public class MiscFragment extends RecyclerViewFragment {
         });
 
         items.add(logger);
+    }
+     private void selinuxInit(List<RecyclerViewItem> items) {
+        SwitchView selinux = new SwitchView();
+        selinux.setTitle(getString(R.string.selinux));
+        selinux.setSummary(getString(R.string.selinux_summary) + " " + Misc.getSeLinuxStatus());
+        selinux.setChecked(Misc.isSeLinuxEnabled());
+        selinux.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableSeLinux(isChecked, getActivity());
+            }
+        });
+
+        items.add(selinux);
     }
 
     private void crcInit(List<RecyclerViewItem> items) {

@@ -34,7 +34,7 @@ import java.util.List;
  * Created by willi on 29.06.16.
  */
 public class Misc {
-
+    private static final String SELINUX = "/sys/fs/selinux/enforce";
     private static final String DYNAMIC_FSYNC = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
     private static final String GENTLE_FAIR_SLEEPERS = "/sys/kernel/sched/gentle_fair_sleepers";
     private static final String ARCH_POWER = "/sys/kernel/sched/arch_power";
@@ -92,6 +92,25 @@ public class Misc {
 
     public static boolean hasArchPower() {
         return Utils.existFile(ARCH_POWER);
+    }
+    
+    public static void enableSeLinux(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", SELINUX), SELINUX, context);
+    }
+
+    public static boolean isSeLinuxEnabled() {
+        return Utils.readFile(SELINUX).equals("1");
+    }
+
+    public static boolean hasSeLinux() {
+        return Utils.existFile(SELINUX);
+    }
+     
+    public static String getSeLinuxStatus() {
+        String result = Utils.readFile(SELINUX);
+        if (result.equals("0")) return "Permissive";
+        else if (result.equals("1")) return "Enforcing";
+        return "Unknown Status";
     }
 
     public static void enableGentleFairSleepers(boolean enable, Context context) {
