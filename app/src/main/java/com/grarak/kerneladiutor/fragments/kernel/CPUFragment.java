@@ -355,6 +355,7 @@ public class CPUFragment extends RecyclerViewFragment {
 
     private void powerSavingWqInit(List<RecyclerViewItem> items) {
         SwitchView powerSavingWq = new SwitchView();
+        powerSavingWq.setTitle(getString(R.string.pewq));
         powerSavingWq.setSummary(getString(R.string.power_saving_wq));
         powerSavingWq.setChecked(Misc.isPowerSavingWqEnabled());
         powerSavingWq.addOnSwitchListener(new SwitchView.OnSwitchListener() {
@@ -430,10 +431,8 @@ public class CPUFragment extends RecyclerViewFragment {
     }
 
     private void cpuBoostInit(List<RecyclerViewItem> items) {
-        List<RecyclerViewItem> cpuBoost = new ArrayList<>();
-
-        TitleView title = new TitleView();
-        title.setText(getString(R.string.cpu_boost));
+        CardView cpuBoostCard = new CardView(getActivity());
+        cpuBoostCard.setTitle(getString(R.string.cpu_boost));
 
         if (CPUBoost.hasEnable()) {
             SwitchView enable = new SwitchView();
@@ -446,7 +445,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            items.add(enable);
+            cpuBoostCard.addItem(enable);
         }
 
         if (CPUBoost.hasCpuBoostDebugMask()) {
@@ -461,7 +460,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(debugMask);
+            cpuBoostCard.addItem(debugMask);
         }
 
         if (CPUBoost.hasCpuBoostMs()) {
@@ -483,7 +482,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(ms);
+            cpuBoostCard.addItem(ms);
         }
 
         if (CPUBoost.hasCpuBoostSyncThreshold() && CPUFreq.getFreqs() != null) {
@@ -504,7 +503,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(syncThreshold);
+            cpuBoostCard.addItem(syncThreshold);
         }
 
         if (CPUBoost.hasCpuBoostInputMs()) {
@@ -526,7 +525,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(inputMs);
+            cpuBoostCard.addItem(inputMs);
         }
 
         if (CPUBoost.hasCpuBoostInputFreq()) {
@@ -555,7 +554,7 @@ public class CPUFragment extends RecyclerViewFragment {
                     }
                 });
 
-                cpuBoost.add(inputCard);
+               cpuBoostCard.addItem(inputCard);
             }
         }
 
@@ -571,7 +570,7 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(wakeup);
+            cpuBoostCard.addItem(wakeup);
         }
 
         if (CPUBoost.hasCpuBoostHotplug()) {
@@ -586,12 +585,11 @@ public class CPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            cpuBoost.add(hotplug);
+            cpuBoostCard.addItem(hotplug);
         }
 
-        if (cpuBoost.size() > 0) {
-            items.add(title);
-            items.addAll(cpuBoost);
+        if (cpuBoostCard.size() > 0) {
+            items.add(cpuBoostCard);
         }
     }
 

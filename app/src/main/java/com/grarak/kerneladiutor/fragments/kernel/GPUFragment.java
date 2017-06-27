@@ -261,9 +261,8 @@ public class GPUFragment extends RecyclerViewFragment {
     }
 
     private void adrenoIdlerInit(List<RecyclerViewItem> items) {
-        List<RecyclerViewItem> adrenoIdler = new ArrayList<>();
-        TitleView title = new TitleView();
-        title.setText(getString(R.string.adreno_idler));
+        CardView adrenoIdlerCard = new CardView(getActivity());
+        adrenoIdlerCard.setTitle(getString(R.string.adreno_idler));
 
         if (AdrenoIdler.hasAdrenoIdlerEnable()) {
             SwitchView enable = new SwitchView();
@@ -277,7 +276,7 @@ public class GPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            adrenoIdler.add(enable);
+            adrenoIdlerCard.addItem(enable);
         }
 
         if (AdrenoIdler.hasAdrenoIdlerDownDiff()) {
@@ -297,7 +296,7 @@ public class GPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            adrenoIdler.add(downDiff);
+            adrenoIdlerCard.addItem(downDiff);
         }
 
         if (AdrenoIdler.hasAdrenoIdlerIdleWait()) {
@@ -317,7 +316,7 @@ public class GPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            adrenoIdler.add(idleWait);
+            adrenoIdlerCard.addItem(idleWait);
         }
 
         if (AdrenoIdler.hasAdrenoIdlerIdleWorkload()) {
@@ -338,12 +337,11 @@ public class GPUFragment extends RecyclerViewFragment {
                 }
             });
 
-            adrenoIdler.add(idleWorkload);
+            adrenoIdlerCard.addItem(idleWorkload);
         }
 
-        if (adrenoIdler.size() > 0) {
-            items.add(title);
-            items.addAll(adrenoIdler);
+        if (adrenoIdlerCard.size() > 0) {
+           items.add(adrenoIdlerCard);
         }
     }
 

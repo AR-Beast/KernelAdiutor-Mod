@@ -109,7 +109,7 @@
     <string name="about">About</string>
     <string name="contributors">Contributors</string>
     <string name="help">Help</string>
-    <string name="wakelocks">Wakelocks</string>
+    <string name="wakelocks">Wake Locks</string>
 
     <!-- Overall -->
     <string name="offline">Offline</string>
@@ -172,6 +172,7 @@
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
     <string name="aggressive">Aggressive</string>
+    <string name="pewq">Power Efficient WorkQueues</string>
     <string name="power_saving_wq">Schedule workqueues on awake CPUs to save power.</string>
     <string name="cfs_scheduler_policy">CFS Scheduler Policy</string>
     <string name="cfs_scheduler_policy_summary">Policy decides the CFS scheduler how to balance tasks onto different CPU unit.</string>
