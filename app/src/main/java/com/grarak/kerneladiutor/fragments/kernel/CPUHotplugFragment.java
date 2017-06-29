@@ -2386,6 +2386,21 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
 
             aioHotplugCard.addItem(LITTLEMaxCpus);
         }
+        
+         if (AiOHotplug.hasSuspendedCores()) {
+            SwitchView suspendedCores = new SwitchView();
+            suspendedCores.setTitle(getString(R.string.screen_off_single_cpu));
+            suspendedCores.setSummary(getString(R.string.screen_off_single_cpu_summary));
+            suspendedCores.setChecked(AiOHotplug.isSCEnabled());
+            suspendedCores.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+                @Override
+                public void onChanged(SwitchView switchView, boolean isChecked) {
+                    AiOHotplug.enable(isChecked, getActivity());
+                }
+            });
+
+            aioHotplugCard.addItem(suspendedCores);
+        }
 
         if (aioHotplugCard.size() > 0) {
             items.add(aioHotplugCard);
