@@ -33,7 +33,7 @@ import java.util.List;
  * Created by willi on 04.05.16.
  */
 public class MSMThermal {
-    private static final String CPU_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
+    private static final String CPU_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     private static final String MSM_THERMAL = "/sys/module/msm_thermal";
     private static final String MSM_THERMAL_V2 = "/sys/module/msm_thermal_v2";
     private static final String PARAMETERS_ENABLED = "parameters/enabled";
