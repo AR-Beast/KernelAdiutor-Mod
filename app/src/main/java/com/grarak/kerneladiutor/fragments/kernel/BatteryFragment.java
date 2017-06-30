@@ -225,7 +225,10 @@ public class BatteryFragment extends RecyclerViewFragment {
         
         if (mDC != null) {
 			int dc = Battery.getDc();
+			if (Battery.getDc() != 0)
              mDC.setStat(String.valueOf(dc) + (" mA/hour"));
+             else
+             mDC.setStat("Not Charging");
         }
     }
 
