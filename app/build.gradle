@@ -61,4 +61,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+if(project.hasProperty("MyProject.signing")
+    && new File(project.property("MyProject.signing") + ".gradle").exists()) {
+  apply from: project.property("MyProject.signing") + ".gradle";
+}
+
 apply plugin: 'com.google.gms.google-services'
