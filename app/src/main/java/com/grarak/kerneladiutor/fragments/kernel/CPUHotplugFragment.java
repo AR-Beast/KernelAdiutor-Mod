@@ -497,9 +497,9 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
 
     private void lazyPlugInit(List<RecyclerViewItem> items) {
         List<RecyclerViewItem> lazyplug = new ArrayList<>();
+        CardView lazyPlugCard = new CardView(getActivity());
+        lazyPlugCard.setTitle(getString(R.string.lazyplug));
 
-        TitleView title = new TitleView();
-        title.setText(getString(R.string.lazyplug));
 
         if (LazyPlug.hasEnable()) {
             SwitchView enable = new SwitchView();
@@ -513,7 +513,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(enable);
+            lazyPlugCard.addItem(enable);
             mEnableViews.add(enable);
         }
 
@@ -530,7 +530,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(profile);
+            lazyPlugCard.addItem(profile);
         }
 
         if (LazyPlug.hasTouchBoost()) {
@@ -545,7 +545,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(touchBoost);
+            lazyPlugCard.addItem(touchBoost);
         }
 
         if (LazyPlug.hasHysteresis()) {
@@ -565,7 +565,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(hysteresis);
+            lazyPlugCard.addItem(hysteresis);
         }
 
         if (LazyPlug.hasThreshold()) {
@@ -585,7 +585,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(threshold);
+            lazyPlugCard.addItem(threshold);
         }
 
         if (LazyPlug.hasPossibleCores()) {
@@ -606,12 +606,11 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            lazyplug.add(possibleCores);
+            lazyPlugCard.addItem(possibleCores);
         }
 
-        if (lazyplug.size() > 0) {
-            items.add(title);
-            items.addAll(lazyplug);
+        if (lazyPlugCard.size() > 0) {
+            items.add(lazyPlugCard);
         }
     }
 
@@ -1809,10 +1808,8 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
     }
 
     private void thunderPlugInit(List<RecyclerViewItem> items) {
-        List<RecyclerViewItem> thunderPlug = new ArrayList<>();
-        TitleView title = new TitleView();
-        title.setText(getString(R.string.thunderplug));
-
+         CardView thunderPlugCard = new CardView(getActivity());
+         thunderPlugCard.setTitle(getString(R.string.thunderplug));
         if (ThunderPlug.hasThunderPlugEnable()) {
             SwitchView enable = new SwitchView();
             enable.setTitle(getString(R.string.thunderplug));
@@ -1825,7 +1822,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(enable);
+            thunderPlugCard.addItem(enable);
             mEnableViews.add(enable);
         }
 
@@ -1847,7 +1844,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(suspendCpus);
+            thunderPlugCard.addItem(suspendCpus);
         }
 
         if (ThunderPlug.hasThunderPlugEnduranceLevel()) {
@@ -1863,7 +1860,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(enduranceLevel);
+            thunderPlugCard.addItem(enduranceLevel);
         }
 
         if (ThunderPlug.hasThunderPlugSamplingRate()) {
@@ -1884,7 +1881,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(samplingRate);
+            thunderPlugCard.addItem(samplingRate);
         }
 
         if (ThunderPlug.hasThunderPlugLoadThreshold()) {
@@ -1904,7 +1901,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(loadThreadshold);
+            thunderPlugCard.addItem(loadThreadshold);
         }
 
         if (ThunderPlug.hasThunderPlugTouchBoost()) {
@@ -1919,12 +1916,11 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            thunderPlug.add(touchBoost);
+            thunderPlugCard.addItem(touchBoost);
         }
 
-        if (thunderPlug.size() > 0) {
-            items.add(title);
-            items.addAll(thunderPlug);
+        if (thunderPlugCard.size() > 0) {
+            items.add(thunderPlugCard);
         }
     }
 
