@@ -31,6 +31,7 @@ import com.grarak.kerneladiutor.fragments.DescriptionFragment;
 import com.grarak.kerneladiutor.fragments.RecyclerViewFragment;
 import com.grarak.kerneladiutor.utils.kernel.battery.Battery;
 import com.grarak.kerneladiutor.views.recyclerview.CardView;
+import com.grarak.kerneladiutor.views.recyclerview.SelectView;
 import com.grarak.kerneladiutor.views.recyclerview.RecyclerViewItem;
 import com.grarak.kerneladiutor.views.recyclerview.SeekBarView;
 import com.grarak.kerneladiutor.views.recyclerview.StatsView;
@@ -152,6 +153,23 @@ public class BatteryFragment extends RecyclerViewFragment {
             });
 
             chargeRateCard.addItem(chargeRate);
+        }
+        
+        if (Battery.hasChargeProfile()) {
+			List<String> freqs = new ArrayList<>();
+            SelectView chargeProfile = new SelectView();
+            chargeProfile.setTitle(getString(R.string.charge_profile));
+            chargeProfile.setSummary(getString(R.string.charge_profile_summary));
+            chargeProfile.setItems(Battery.getProfilesMenu(getActivity()));
+            chargeProfile.setItem(Battery.getProfiles());
+            chargeProfile.setOnItemSelected(new SelectView.OnItemSelected() {
+                @Override
+                public void onItemSelected(SelectView selectView, int position, String item) {
+                    Battery.setchargeProfile(position, getActivity());
+                }
+            });
+
+            chargeRateCard.addItem(chargeProfile);
         }
 
         if (Battery.hasChargingCurrent()) {

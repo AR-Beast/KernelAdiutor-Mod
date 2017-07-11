@@ -567,8 +567,13 @@
     <string name="charging_current_summary">Set the maximum charging current which quick charge can utilize from AC outlet.</string>
     <string name="usb_charging_current">USB Current</string>
     <string name="usb_charging_current_summary">Set the constant USB charging current which quick charge can utilize from USB outlet.</string>
-
-
+    <string name="charge_profile">Charge Speed</string>
+    <string name="charge_profile_summary">Speed at which device charges.</string> 
+    <string name="slowccharge">Slow (safe)</string>
+    <string name="balancedcharge">Balanced</string>   
+    <string name="fastcharge">Fast</string>
+    <string name="thundercharge">ThunderCharge (Constant)</string>
+      
     <!-- LED -->
     <string name="fade">Fade</string>
     <string name="fade_summary">Enable for fading, disable for blinking.</string>

@@ -21,12 +21,16 @@ package com.grarak.kerneladiutor.utils.kernel.battery;
 
 import android.content.Context;
 
+import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.fragments.ApplyOnBootFragment;
 import com.grarak.kerneladiutor.utils.Utils;
 import com.grarak.kerneladiutor.utils.root.Control;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by willi on 26.06.16.
@@ -41,6 +45,7 @@ public class Battery {
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
     private static final String DYNAMIC_CURRENT = CHARGE_RATE + "/Actual_Current";
     private static final String USB_CUSTOM_CURRENT = CHARGE_RATE + "/USB_Current";
+    private static final String CHARGE_PROFILE = CHARGE_RATE + "/Charging_Profile"; 
 
     private static Integer sCapacity;
 
@@ -71,6 +76,29 @@ public class Battery {
     
     public static int getDc() {
         return Utils.strToInt(Utils.readFile(DYNAMIC_CURRENT));
+    }
+    
+   public static boolean hasChargeProfile() {
+        return Utils.existFile(CHARGE_PROFILE);
+    }
+
+    public static int getProfiles() {
+        String file = CHARGE_PROFILE;
+        return Utils.strToInt(Utils.readFile(file));
+    }
+
+    public static List<String> getProfilesMenu(Context context) {
+        List<String> list = new ArrayList<>();
+        list.add(context.getString(R.string.slowccharge));
+        list.add(context.getString(R.string.balancedcharge));
+        list.add(context.getString(R.string.fastcharge));
+        list.add(context.getString(R.string.thundercharge));
+        return list;
+    }
+    
+    public static void setchargeProfile(int value, Context context) {
+        String file = CHARGE_PROFILE;
+        run(Control.write(String.valueOf(value), file), file, context);
     }
 
     public static void enableChargeRate(boolean enable, Context context) {
