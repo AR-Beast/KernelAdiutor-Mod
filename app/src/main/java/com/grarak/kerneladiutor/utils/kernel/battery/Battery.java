@@ -39,7 +39,7 @@ public class Battery {
     private static final String CHARGE_RATE = "/sys/kernel/Quick_Charge";
     private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/QC_Toggle";
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
-    private static final String DYNAMIC_CURRENT = CHARGE_RATE + "/Dynamic_Current";
+    private static final String DYNAMIC_CURRENT = CHARGE_RATE + "/Actual_Current";
     private static final String USB_CUSTOM_CURRENT = CHARGE_RATE + "/USB_Current";
 
     private static Integer sCapacity;

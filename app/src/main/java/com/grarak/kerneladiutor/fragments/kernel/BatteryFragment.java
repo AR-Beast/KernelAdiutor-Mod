@@ -62,7 +62,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             blxInit(items);
         }
         mDC = new StatsView();
-        mDC.setTitle("Dynamic AC CHarge Current");
+        mDC.setTitle("CHarge Current");
         items.add(mDC);
         
         chargeRateInit(items);
