@@ -675,6 +675,8 @@
     <string name="selinux_summary">Currently:</string>
     <string name="crc">Software CRC control</string>
     <string name="crc_summary">CRC is a mechanism aiming to prevent data corruption when enabled. Data blocks can lose up to 30% of their performance.</string>
+    <string name="sn">State Notifier</string>
+    <string name="sn_summary">Toggle State Notifier.</string>
     <string name="fsync">Fsync</string>
     <string name="fsync_summary">Disable for better file system performance at the risk of data loss in case of a system crash.</string>
     <string name="dynamic_fsync">Dynamic Fsync</string>

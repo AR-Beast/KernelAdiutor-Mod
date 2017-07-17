@@ -38,6 +38,8 @@ public class Misc {
     private static final String DYNAMIC_FSYNC = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
     private static final String GENTLE_FAIR_SLEEPERS = "/sys/kernel/sched/gentle_fair_sleepers";
     private static final String ARCH_POWER = "/sys/kernel/sched/arch_power";
+    private static final String STATE_NOTIFIER = "/sys/module/state_notifier/parameters";
+    private static final String STATE_NOTIFIER_E =  "/sys/module/state_notifier/parameters/enabled";
     private static final String TCP_AVAILABLE_CONGESTIONS = "/proc/sys/net/ipv4/tcp_available_congestion_control";
     private static final String HOSTNAME_KEY = "net.hostname";
 
@@ -93,6 +95,18 @@ public class Misc {
     public static boolean hasArchPower() {
         return Utils.existFile(ARCH_POWER);
     }
+   public static boolean hasState() {
+        return Utils.existFile(STATE_NOTIFIER);
+    }  
+  
+    public static boolean isStateEnabled() {
+        return Utils.readFile(STATE_NOTIFIER_E).equals("Y");
+    }
+    
+    public static void enableState(boolean enable, Context context) {
+        run(Control.write(enable ? "Y" : "N", STATE_NOTIFIER_E), STATE_NOTIFIER_E, context);
+    }
+
     
     public static void enableSeLinux(boolean enable, Context context) {
         run(Control.write(enable ? "1" : "0", SELINUX), SELINUX, context);

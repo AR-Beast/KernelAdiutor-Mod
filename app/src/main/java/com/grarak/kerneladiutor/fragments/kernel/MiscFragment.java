@@ -67,6 +67,7 @@ public class MiscFragment extends RecyclerViewFragment {
             crcInit(items);
         }
         fsyncInit(items);
+        stateInit(items);
         if (Misc.hasGentleFairSleepers()) {
             gentlefairsleepersInit(items);
         }
@@ -154,6 +155,22 @@ public class MiscFragment extends RecyclerViewFragment {
 
         items.add(crc);
     }
+    
+    private void stateInit(List<RecyclerViewItem> items) {
+		 if (Misc.hasState()) {
+        SwitchView state = new SwitchView();
+        state.setTitle(getString(R.string.sn));
+        state.setSummary(getString(R.string.sn_summary));
+        state.setChecked(Misc.isStateEnabled());
+        state.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableState(isChecked, getActivity());
+            }
+        });
+
+        items.add(state);
+    }}
 
     private void fsyncInit(List<RecyclerViewItem> items) {
         if (Misc.hasFsync()) {
