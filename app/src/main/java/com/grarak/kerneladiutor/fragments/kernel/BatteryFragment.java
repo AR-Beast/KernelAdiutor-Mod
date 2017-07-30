@@ -64,8 +64,9 @@ public class BatteryFragment extends RecyclerViewFragment {
         }
         mDC = new StatsView();
         mDC.setTitle("CHarge Current");
+        if (Battery.hasDc()) {
         items.add(mDC);
-        
+	}
         chargeRateInit(items);
     }
 
@@ -243,7 +244,7 @@ public class BatteryFragment extends RecyclerViewFragment {
         
         if (mDC != null) {
 			int dc = Battery.getDc();
-			if (Battery.getDc() != 0)
+			if (Battery.getDc() > 10)
              mDC.setStat(String.valueOf(dc) + (" mA/hour"));
              else
              mDC.setStat("Not Charging");

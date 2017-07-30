@@ -73,6 +73,9 @@ public class Battery {
         return Utils.existFile(USB_CUSTOM_CURRENT);
     }
     
+    public static boolean hasDc() {
+        return Utils.existFile(DYNAMIC_CURRENT);
+    } 
     
     public static int getDc() {
         return Utils.strToInt(Utils.readFile(DYNAMIC_CURRENT));
