@@ -56,17 +56,16 @@ public class BatteryFragment extends RecyclerViewFragment {
     protected void addItems(List<RecyclerViewItem> items) {
         levelInit(items);
         voltageInit(items);
+        mDC = new StatsView();
+        if (Battery.hasDc()) {
+        items.add(mDC);
+	    }
         if (Battery.hasForceFastCharge()) {
             forceFastChargeInit(items);
         }
         if (Battery.hasBlx()) {
             blxInit(items);
         }
-        mDC = new StatsView();
-        mDC.setTitle("CHarge Current");
-        if (Battery.hasDc()) {
-        items.add(mDC);
-	}
         chargeRateInit(items);
     }
 
@@ -243,11 +242,13 @@ public class BatteryFragment extends RecyclerViewFragment {
         }
         
         if (mDC != null) {
-			int dc = Battery.getDc();
-			if (Battery.getDc() > 10)
-             mDC.setStat(String.valueOf(dc) + (" mA/hour"));
-             else
-             mDC.setStat("Not Charging");
+			float dc = Battery.getDc();
+			if (Battery.getDc() > 0)
+			mDC.setTitle("DisCharge Current");
+            mDC.setStat((String.valueOf(dc)/1000) + (" mA"));
+            else
+			mDC.setTitle("Charge Current");
+            mDC.setStat((String.valueOf(dc)/1000) + (" mA"));
         }
     }
 
