@@ -242,13 +242,13 @@ public class BatteryFragment extends RecyclerViewFragment {
         }
         
         if (mDC != null) {
-			float dc = Battery.getDc();
-			if (Battery.getDc() > 0)
-			mDC.setTitle("DisCharge Current");
-            mDC.setStat((String.valueOf(dc)/1000) + (" mA"));
-            else
-			mDC.setTitle("Charge Current");
-            mDC.setStat((String.valueOf(dc)/1000) + (" mA"));
+			float dc = Battery.getDc() /1000;
+			if (Battery.isCharge()){
+			mDC.setTitle("DisCharge Rate");
+            mDC.setStat(String.valueOf(dc) + (" mA"));}
+            else{
+			mDC.setTitle("Charge Rate");
+            mDC.setStat(String.valueOf(dc) + (" mA"));}
         }
     }
 

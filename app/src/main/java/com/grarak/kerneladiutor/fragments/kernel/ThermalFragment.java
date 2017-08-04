@@ -707,8 +707,8 @@ public class ThermalFragment extends RecyclerViewFragment {
             SeekBarView francothermalstep = new SeekBarView();
             francothermalstep.setTitle(getString(R.string.franco_thermal_step));
             francothermalstep.setSummary(getString(R.string.franco_thermal_step_summary));
-            francothermalstep.setMax(10);
-            francothermalstep.setMin(0);
+            francothermalstep.setMax(6);
+            francothermalstep.setMin(1);
             francothermalstep.setProgress(MSMThermal.getFrancoThermalStep());
             francothermalstep.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
                 @Override
