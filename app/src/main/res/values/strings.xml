@@ -204,7 +204,7 @@
     <string name="override_vmin_summary">Disable to remove manufacturer limits on undervolting</string>
 
     <!-- CPU Hotplug -->
-    <string name="hotplug_warning">More than one hotplugging system is enabled!\nPlease only use one.</string>
+    <string name="hotplug_warning">More than one hotplugging system is enabled!\nRecently enabled Hotplug will be disabled automatically.</string>
     <string name="mpdecision">MPDecision</string>
     <string name="mpdecision_summary">Qualcomm\'s hotplugging solution. You might get problems with changing frequencies when this is enabled.</string>
     <string name="intelliplug">IntelliPlug</string>
@@ -329,7 +329,7 @@
     <string name="cycle_up">Cycle Up</string>
     <string name="cycle_up_summary">Cycles to wait after the last hotplug event to plug another core.</string>
     <string name="core_control">Core Control</string>
-    <string name="core_control_summary">Qualcomm\'s hotplugging solution. Sorry you can\'t turn it off. #blameqcom</string>
+    <string name="core_control_summary">Qualcomm\'s hotplugging solution. Sorry you can\'t turn it off. #blameqcom but not now :)</string>
     <string name="hcube">H-Cube</string>
     <string name="hcube_summary">OnePlus\' modified Core Control.</string>
     <string name="min_cpus_big">Minimum CPUs big</string>

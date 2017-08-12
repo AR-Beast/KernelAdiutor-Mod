@@ -2178,10 +2178,26 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
     }
 
     private void coreCtlInit(List<RecyclerViewItem> items) {
-        List<RecyclerViewItem> coreCtl = new ArrayList<>();
-        TitleView title = new TitleView();
-        title.setText(getString(CoreCtl.hasEnable() ? R.string.hcube : R.string.core_control));
+        List<RecyclerViewItem> coreCtl = new ArrayList<>();   
+        CardView coreCtlCard = new CardView(getActivity());
+        coreCtlCard.setTitle(getString(R.string.core_control));
+        
+        if (CoreCtl.hasEnable()) {
+                SwitchView enable = new SwitchView();
+                enable.setTitle(getString(R.string.core_control));
+                enable.setSummary(getString(R.string.core_control_summary));
+                enable.setChecked(CoreCtl.isEnabled());
+                enable.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+                    @Override
+                    public void onChanged(SwitchView switchView, boolean isChecked) {
+                        CoreCtl.enable(isChecked, getActivity());
+                    }
+                });
 
+                coreCtlCard.addItem(enable);
+                mEnableViews.add(enable);
+        }
+        
         if (CoreCtl.hasMinCpus(CPUFreq.getBigCpu())) {
             SeekBarView minCpus = new SeekBarView();
             minCpus.setTitle(getString(R.string.min_cpus_big));
@@ -2198,8 +2214,27 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 public void onMove(SeekBarView seekBarView, int position, String value) {
                 }
             });
+            coreCtlCard.addItem(minCpus);
+        }
+        
+        if (CoreCtl.hasMaxCpus(CPUFreq.getBigCpu())) {
+            SeekBarView maxCpus = new SeekBarView();
+            maxCpus.setTitle(getString(R.string.max_cpu_online_big));
+            maxCpus.setSummary(getString(R.string.max_cpu_online_big_summary));
+            maxCpus.setMax(CPUFreq.getBigCpuRange().size());
+            maxCpus.setProgress(CoreCtl.getMaxCpus(CPUFreq.getBigCpu()));
+            maxCpus.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    CoreCtl.setMaxCpus(position, CPUFreq.getBigCpu(), getActivity());
+                }
 
-            coreCtl.add(minCpus);
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+          coreCtlCard.addItem(maxCpus);
+
         }
 
         if (CoreCtl.hasBusyDownThreshold()) {
@@ -2218,7 +2253,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            coreCtl.add(busyDownThreshold);
+            coreCtlCard.addItem(busyDownThreshold);
         }
 
         if (CoreCtl.hasBusyUpThreshold()) {
@@ -2237,7 +2272,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            coreCtl.add(busyUpThreshold);
+            coreCtlCard.addItem(busyUpThreshold);
         }
 
         if (CoreCtl.hasOfflineDelayMs()) {
@@ -2259,37 +2294,13 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                 }
             });
 
-            coreCtl.add(offlineDelayMs);
-        }
-
-        if (coreCtl.size() > 0) {
-            items.add(title);
-
-            if (CoreCtl.hasEnable()) {
-                SwitchView enable = new SwitchView();
-                enable.setTitle(getString(R.string.hcube));
-                enable.setSummary(getString(R.string.hcube_summary));
-                enable.setChecked(CoreCtl.isEnabled());
-                enable.addOnSwitchListener(new SwitchView.OnSwitchListener() {
-                    @Override
-                    public void onChanged(SwitchView switchView, boolean isChecked) {
-                        CoreCtl.enable(isChecked, getActivity());
-                    }
-                });
-
-                items.add(enable);
-                mEnableViews.add(enable);
-            } else {
-                DescriptionView description = new DescriptionView();
-                description.setTitle(getString(R.string.core_control));
-                description.setSummary(getString(R.string.core_control_summary));
-                items.add(description);
-            }
-
-            items.addAll(coreCtl);
+            coreCtlCard.addItem(offlineDelayMs);
+        } 
+  
+        if (coreCtlCard.size() > 0) {
+            items.add(coreCtlCard);
         }
     }
-
     private void aioHotplugInit(List<RecyclerViewItem> items) {
 		CardView aioHotplugCard = new CardView(getActivity());
         aioHotplugCard.setTitle(getString(R.string.aio_hotplug));

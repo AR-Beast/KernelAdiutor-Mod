@@ -36,21 +36,6 @@ then
 echo -e "$red Fix the errors!"
 exit 1
 fi
-
-cp -r $BUILD/ $OUT/
-
-echo -e $yellow
-cd $OUT/apk
-while true; do
-    read -p " Do you wish to install this app?" yn
-    case $yn in
-        [Yy]* ) adb devices && adb install app-debug.apk; break;;
-        [Nn]* ) mv app-debug.apk KA-MOD-debug-$(date +"%Y%m%d-%T");
-mv app-release.apk KA-MOD-release-$(date +"%Y%m%d-%T");
-exit;;
-        * ) echo "**** Done. ****";;
-    esac
-done
 echo "**** Done. ****"
 
 

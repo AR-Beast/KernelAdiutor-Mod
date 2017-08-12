@@ -35,12 +35,13 @@ import java.util.List;
  */
 public class CoreCtl {
 
-    public static final String CORE_CTL = "/sys/devices/system/cpu/cpu%d/core_ctl";
-    private static final String HCUBE = "/sys/devices/system/cpu/cpu%d/hcube";
-    private static String PARENT;
-    private static final String ENABLE = "/hc_on";
+    public static final String CORE_CTL = "/sys/devices/system/cpu/cpu0/core_ctl";
+    private static final String HCUBE = "/sys/devices/system/cpu/cpu0/hcube";
+    private static String PARENT = "/sys/devices/system/cpu/cpu0/core_ctl";
+    private static final String ENABLE = "/cctoggle";
     private static final String IS_BIG_CLUSTER = "/is_big_cluster";
     public static final String MIN_CPUS = "/min_cpus";
+    public static final String MAX_CPUS = "/max_cpus";
     private static final String BUSY_DOWN_THRESHOLD = "/busy_down_thres";
     private static final String BUSY_UP_THRESHOLD = "/busy_up_thres";
     private static final String OFFLINE_DELAY_MS = "/offline_delay_ms";
@@ -122,13 +123,38 @@ public class CoreCtl {
     public static boolean hasMinCpus(int core) {
         return Utils.existFile(Utils.strFormat(PARENT + MIN_CPUS, core));
     }
+    
+    public static void setMaxCpus(int max, int cpu, Context context) {
+        setMaxCpus(max, cpu, ApplyOnBootFragment.CPU_HOTPLUG, context);
+    }
+
+    public static void setMaxCpus(int max, int cpu, String category, Context context) {
+        if (context != null) {
+            CPUFreq.sCoreCtlMinCpu = max;
+            Prefs.saveInt("core_ctl_max_cpus_big", max, context);
+        }
+        Control.runSetting(Control.write(String.valueOf(max), Utils.strFormat(PARENT + MAX_CPUS,
+                cpu)), category, Utils.strFormat(PARENT + MAX_CPUS, cpu), context);
+    }
+
+    public static int getMaxCpus(int core) {
+        return Utils.strToInt(Utils.readFile(Utils.strFormat(PARENT + MAX_CPUS, core)));
+    }
+
+    public static boolean hasMaxCpus() {
+        return hasMinCpus(0);
+    }
+
+    public static boolean hasMaxCpus(int core) {
+        return Utils.existFile(Utils.strFormat(PARENT + MAX_CPUS, core));
+    }
 
     public static void enable(boolean enable, Context context) {
-        run(Control.write(enable ? "1" : "0", PARENT + ENABLE), PARENT + ENABLE, context);
+        run(Control.write(enable ? "0" : "1", PARENT + ENABLE), PARENT + ENABLE, context);
     }
 
     public static boolean isEnabled() {
-        return Utils.readFile(PARENT + ENABLE).equals("1");
+        return Utils.readFile(PARENT + ENABLE).equals("0");
     }
 
     public static boolean hasEnable() {
