@@ -64,26 +64,6 @@ public class Misc {
     private static String FSYNC_FILE;
     private static Boolean FSYNC_USE_INTEGER;
 
-    public static void setHostname(String value, Context context) {
-        run(Control.setProp(HOSTNAME_KEY, value), HOSTNAME_KEY, context);
-    }
-
-    public static String getHostname() {
-        return RootUtils.getProp(HOSTNAME_KEY);
-    }
-
-    public static void setTcpCongestion(String tcpCongestion, Context context) {
-        run("sysctl -w net.ipv4.tcp_congestion_control=" + tcpCongestion, TCP_AVAILABLE_CONGESTIONS, context);
-    }
-
-    public static String getTcpCongestion() {
-        return getTcpAvailableCongestions().get(0);
-    }
-
-    public static List<String> getTcpAvailableCongestions() {
-        return new ArrayList<>(Arrays.asList(Utils.readFile(TCP_AVAILABLE_CONGESTIONS).split(" ")));
-    }
-
     public static void enableArchPower(boolean enable, Context context) {
         run(Control.write(enable ? "1" : "0", ARCH_POWER), ARCH_POWER, context);
     }

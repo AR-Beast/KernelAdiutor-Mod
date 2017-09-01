@@ -47,6 +47,7 @@ import com.grarak.kerneladiutor.fragments.kernel.ThermalFragment;
 import com.grarak.kerneladiutor.fragments.kernel.VMFragment;
 import com.grarak.kerneladiutor.fragments.kernel.WakeFragment;
 import com.grarak.kerneladiutor.fragments.kernel.WakelockFragment;
+import com.grarak.kerneladiutor.fragments.kernel.NetworkFragment;
 import com.grarak.kerneladiutor.utils.Prefs;
 
 import java.util.HashMap;
@@ -73,6 +74,7 @@ public class ApplyOnBootFragment extends BaseFragment {
     public static final String ENTROPY = "entropy_onboot";
     public static final String MISC = "misc_onboot";
     public static final String WAKELOCK = "wakelocks_onboot";
+    public static final String NETWORK = "network_onboot";
 
     private static final HashMap<Class, String> sAssignments = new HashMap<>();
 
@@ -94,6 +96,7 @@ public class ApplyOnBootFragment extends BaseFragment {
         sAssignments.put(EntropyFragment.class, ENTROPY);
         sAssignments.put(MiscFragment.class, MISC);
         sAssignments.put(WakelockFragment.class, WAKELOCK);
+        sAssignments.put(NetworkFragment.class, NETWORK);
     }
 
     public static String getAssignment(Class fragment) {

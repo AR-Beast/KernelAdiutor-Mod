@@ -77,7 +77,6 @@ public class MiscFragment extends RecyclerViewFragment {
         if (PowerSuspend.supported()) {
             powersuspendInit(items);
         }
-        networkInit(items);
     }
 
     private void vibrationInit(List<RecyclerViewItem> items) {
@@ -287,40 +286,4 @@ public class MiscFragment extends RecyclerViewFragment {
         }
     }
 
-    private void networkInit(List<RecyclerViewItem> items) {
-        CardView networkCard = new CardView(getActivity());
-        networkCard.setTitle(getString(R.string.network));
-
-        try {
-            SelectView tcp = new SelectView();
-            tcp.setTitle(getString(R.string.tcp));
-            tcp.setSummary(getString(R.string.tcp_summary));
-            tcp.setItems(Misc.getTcpAvailableCongestions());
-            tcp.setItem(Misc.getTcpCongestion());
-            tcp.setOnItemSelected(new SelectView.OnItemSelected() {
-                @Override
-                public void onItemSelected(SelectView selectView, int position, String item) {
-                    Misc.setTcpCongestion(item, getActivity());
-                }
-            });
-
-            networkCard.addItem(tcp);
-        } catch (Exception ignored) {
-        }
-
-        GenericSelectView hostname = new GenericSelectView();
-        hostname.setSummary(getString(R.string.hostname));
-        hostname.setValue(Misc.getHostname());
-        hostname.setValueRaw(hostname.getValue());
-        hostname.setOnGenericValueListener(new GenericSelectView.OnGenericValueListener() {
-            @Override
-            public void onGenericValueSelected(GenericSelectView genericSelectView, String value) {
-                Misc.setHostname(value, getActivity());
-            }
-        });
-
-        networkCard.addItem(hostname);
-
-        items.add(networkCard);
-    }
 }

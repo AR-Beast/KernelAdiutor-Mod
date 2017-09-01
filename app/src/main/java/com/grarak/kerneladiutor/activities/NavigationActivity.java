@@ -63,6 +63,7 @@ import com.grarak.kerneladiutor.fragments.kernel.ThermalFragment;
 import com.grarak.kerneladiutor.fragments.kernel.VMFragment;
 import com.grarak.kerneladiutor.fragments.kernel.WakeFragment;
 import com.grarak.kerneladiutor.fragments.kernel.WakelockFragment;
+import com.grarak.kerneladiutor.fragments.kernel.NetworkFragment;
 import com.grarak.kerneladiutor.fragments.other.AboutFragment;
 import com.grarak.kerneladiutor.fragments.other.ContributorsFragment;
 import com.grarak.kerneladiutor.fragments.other.HelpFragment;
@@ -219,7 +220,10 @@ public class NavigationActivity extends BaseActivity
         if (Entropy.supported()) {
             sFragments.add(new NavigationActivity.NavigationFragment(R.string.entropy, new EntropyFragment(), R.drawable.ic_numbers));
         }
-        sFragments.add(new NavigationActivity.NavigationFragment(R.string.wakelocks, new WakelockFragment(), R.drawable.ic_led));
+        if (Wakelocks.supported()) {
+            sFragments.add(new NavigationActivity.NavigationFragment(R.string.wakelocks, new WakelockFragment(), R.drawable.ic_led));
+        }
+        sFragments.add(new NavigationActivity.NavigationFragment(R.string.network, new NetworkFragment(), R.drawable.ic_server));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.misc, new MiscFragment(), R.drawable.ic_clear));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.tools));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.data_sharing, new DataSharingFragment(), R.drawable.ic_database));
