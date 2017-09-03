@@ -21,14 +21,11 @@
 package com.grarak.kerneladiutor.fragments.kernel;
 
 import android.content.Context;
-import android.os.Vibrator;
 
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.fragments.ApplyOnBootFragment;
 import com.grarak.kerneladiutor.fragments.RecyclerViewFragment;
-import com.grarak.kerneladiutor.views.recyclerview.CardView;
 import com.grarak.kerneladiutor.utils.kernel.wakelock.Wakelocks;
-import com.grarak.kerneladiutor.views.recyclerview.GenericSelectView;
 import com.grarak.kerneladiutor.views.recyclerview.RecyclerViewItem;
 import com.grarak.kerneladiutor.views.recyclerview.SwitchView;
 import com.grarak.kerneladiutor.views.recyclerview.SeekBarView;
@@ -47,7 +44,7 @@ public class WakelockFragment extends RecyclerViewFragment {
         addViewPagerFragment(ApplyOnBootFragment.newInstance(this));
     }
     
-        @Override
+    @Override
     protected void addItems(List<RecyclerViewItem> items) {
         wakelockInit(items);
     }    
@@ -175,7 +172,7 @@ public class WakelockFragment extends RecyclerViewFragment {
 
         if (wakelocks.size() > 0) {
             TitleView wakelockTitle = new TitleView();
-            wakelockTitle.setText(getString(R.string.wakelock));
+            wakelockTitle.setText(getString(R.string.wakelocks));
 
             items.add(wakelockTitle);
             items.addAll(wakelocks);
