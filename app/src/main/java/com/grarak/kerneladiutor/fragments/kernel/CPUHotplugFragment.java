@@ -2293,11 +2293,33 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
                     CoreCtl.setOfflineDelayMs(position * 100, getActivity());
                 }
             });
-
+            
             coreCtlCard.addItem(offlineDelayMs);
         } 
-  
-        if (coreCtlCard.size() > 0) {
+
+        if (CoreCtl.hasOnlineDelayMs()) {
+            SeekBarView onlineDelayMs = new SeekBarView();
+            onlineDelayMs.setTitle(getString(R.string.online_delay));
+            onlineDelayMs.setSummary(getString(R.string.online_delay_summary));
+            onlineDelayMs.setUnit(getString(R.string.ms));
+            onlineDelayMs.setMax(5000);
+            onlineDelayMs.setOffset(100);
+            onlineDelayMs.setProgress(CoreCtl.getOnlineDelayMs() / 100);
+            onlineDelayMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    CoreCtl.setOnlineDelayMs(position * 100, getActivity());
+                }
+            });
+
+             coreCtlCard.addItem(onlineDelayMs);
+        }
+
+          if (coreCtlCard.size() > 0) {
             items.add(coreCtlCard);
         }
     }
