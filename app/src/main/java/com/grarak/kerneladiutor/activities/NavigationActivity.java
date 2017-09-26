@@ -220,9 +220,7 @@ public class NavigationActivity extends BaseActivity
         if (Entropy.supported()) {
             sFragments.add(new NavigationActivity.NavigationFragment(R.string.entropy, new EntropyFragment(), R.drawable.ic_numbers));
         }
-        if (Wakelocks.supported()) {
-            sFragments.add(new NavigationActivity.NavigationFragment(R.string.wakelocks, new WakelockFragment(), R.drawable.ic_led));
-        }
+        sFragments.add(new NavigationActivity.NavigationFragment(R.string.wakelocks, new WakelockFragment(), R.drawable.ic_led));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.network, new NetworkFragment(), R.drawable.ic_server));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.misc, new MiscFragment(), R.drawable.ic_clear));
         sFragments.add(new NavigationActivity.NavigationFragment(R.string.tools));
