@@ -94,10 +94,13 @@ public class Battery {
         String file = CHARGE_PROFILE;
         return Utils.strToInt(Utils.readFile(file));
     }
+    
+    public static boolean isThunder() {
+        return Utils.readFile(CHARGE_PROFILE).equals("2");
+    }
 
     public static List<String> getProfilesMenu(Context context) {
         List<String> list = new ArrayList<>();
-        list.add(context.getString(R.string.slowccharge));
         list.add(context.getString(R.string.balancedcharge));
         list.add(context.getString(R.string.fastcharge));
         list.add(context.getString(R.string.thundercharge));

@@ -173,6 +173,7 @@ public class BatteryFragment extends RecyclerViewFragment {
         }
 
         if (Battery.hasChargingCurrent()) {
+			if (Battery.isThunder()){
             SeekBarView chargingCurrent = new SeekBarView();
             chargingCurrent.setTitle(getString(R.string.charging_current));
             chargingCurrent.setSummary(getString(R.string.charging_current_summary));
@@ -193,7 +194,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             });
 
             chargeRateCard.addItem(chargingCurrent);
-        }
+        }}
         
          if (Battery.hasUSBChargingCurrent()) {
             SeekBarView usbchargingCurrent = new SeekBarView();
@@ -242,13 +243,23 @@ public class BatteryFragment extends RecyclerViewFragment {
         }
         
         if (mDC != null) {
+			if (Battery.getDc() >= 10000) {
 			float dc = Battery.getDc() /1000;
 			if (Battery.isCharge()){
 			mDC.setTitle("DisCharge Rate");
             mDC.setStat(String.valueOf(dc) + (" mA"));}
             else{
 			mDC.setTitle("Charge Rate");
-            mDC.setStat(String.valueOf(dc) + (" mA"));}
+            mDC.setStat(String.valueOf(dc) + (" mA"));}}
+			else {
+			float cd = Battery.getDc();
+			if (Battery.isCharge()){
+			mDC.setTitle("DisCharge Rate");
+            mDC.setStat(String.valueOf(cd) + (" mA"));}
+            else{
+			mDC.setTitle("Charge Rate");
+            mDC.setStat(String.valueOf(cd) + (" mA"));}}
+
         }
     }
 
