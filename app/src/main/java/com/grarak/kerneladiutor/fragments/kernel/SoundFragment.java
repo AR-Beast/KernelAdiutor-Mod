@@ -70,9 +70,6 @@ public class SoundFragment extends RecyclerViewFragment {
         if (Sound.hasHeadphoneFlar()) {
             headphoneFlarInit(items);
         }
-        if (Sound.hasSpeakerGain()) {
-            speakerGainInit(items);
-        }
         if (Sound.hasMicrophoneFlar()) {
             microphoneFlarInit(items);
         }        
