@@ -93,7 +93,7 @@ public class Service extends android.app.Service {
                 pm.setComponentEnabledSetting(new ComponentName(this, StartActivity.class),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                 pm.setComponentEnabledSetting(new ComponentName(BuildConfig.APPLICATION_ID,
-                                BuildConfig.APPLICATION_ID + ".activities.StartActivity"),
+                                "com.grarak.kerneladiutor.activities.StartActivity"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             } else {
                 Utils.setStartActivity(Prefs.getBoolean("materialicon", false, this), this);
