@@ -17,33 +17,37 @@
  * along with Kernel Adiutor.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.grarak.kerneladiutor.services.boot;
+package com.grarak.kerneladiutor.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+import android.os.Bundle;
 
-import com.grarak.kerneladiutor.services.monitor.Monitor;
-import com.grarak.kerneladiutor.utils.Prefs;
+import com.crashlytics.android.Crashlytics;
+import com.grarak.kerneladiutor.BuildConfig;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
- * Created by willi on 03.05.16.
+ * Created by willi on 02.08.16.
  */
-public class Receiver extends BroadcastReceiver {
+public class StartActivityMaterial extends Activity {
+
+    /*
+     * This activity only existed, so the user can toggle between
+     * classic and material icon.
+     */
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                JobService.start(context);
-            } else {
-                context.startService(new Intent(context, Service.class));
-            }
-            if (Prefs.getBoolean("data_sharing", true, context)) {
-                context.startService(new Intent(context, Monitor.class));
-            }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(this, new Crashlytics());
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
 }
