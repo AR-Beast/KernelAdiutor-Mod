@@ -20,13 +20,11 @@
 package com.grarak.kerneladiutor.services.boot;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -68,7 +66,6 @@ import java.util.List;
 public class Service extends android.app.Service {
 
     private static final String TAG = Service.class.getSimpleName();
-    private static final String CHANNEL_ID = "onboot_notification_channel";
     private static boolean sCancel;
 
     @Nullable
@@ -93,7 +90,7 @@ public class Service extends android.app.Service {
                 pm.setComponentEnabledSetting(new ComponentName(this, StartActivity.class),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                 pm.setComponentEnabledSetting(new ComponentName(BuildConfig.APPLICATION_ID,
-                                "com.grarak.kerneladiutor.activities.StartActivity"),
+                                BuildConfig.APPLICATION_ID + ".activities.StartActivity"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             } else {
                 Utils.setStartActivity(Prefs.getBoolean("materialicon", false, this), this);
@@ -168,16 +165,9 @@ public class Service extends android.app.Service {
         Intent launchIntent = pm.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, launchIntent, 0);
 
-        final NotificationChannel notificationChannel = new NotificationChannel(
-                CHANNEL_ID,
-                getString(R.string.channel_name_onboot),
-                NotificationManager.IMPORTANCE_LOW);
-
         final NotificationManager notificationManager = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.createNotificationChannel(notificationChannel);
-
-        final Notification.Builder builder = new Notification.Builder(this, CHANNEL_ID);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         if (!hideNotification) {
             builder.setContentTitle(getString(R.string.app_name))
@@ -189,9 +179,12 @@ public class Service extends android.app.Service {
                     .setOngoing(true)
                     .setContentIntent(contentIntent)
                     .setWhen(0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                builder.setPriority(Notification.PRIORITY_MAX);
+            }
         }
 
-        final Notification.Builder builderComplete = new Notification.Builder(this, CHANNEL_ID);
+        final NotificationCompat.Builder builderComplete = new NotificationCompat.Builder(this);
         if (!hideNotification) {
             builderComplete.setContentTitle(getString(R.string.app_name))
                     .setSmallIcon(Prefs.getBoolean("materialicon", false, this) ?
