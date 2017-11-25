@@ -18,7 +18,7 @@
 ROOT=$PWD
 BUILD='/home/ayushr1/AR_Beast/KernelAdiutor-Mod/app/build/outputs/apk'
 OUT='/home/ayushr1/AR_Beast/out'
-APK='/home/ayushr1/AR_Beast/KernelAdiutor-Mod/app/build/outputs/apk/app-debug.apk'
+APK='/home/ayushr1/AR_Beast/KernelAdiutor-Mod/app/build/outputs/apk/debug/app-debug.apk'
 
 
 
