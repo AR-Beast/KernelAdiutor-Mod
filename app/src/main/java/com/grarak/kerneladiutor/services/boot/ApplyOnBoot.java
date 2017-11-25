@@ -141,7 +141,7 @@ public class ApplyOnBoot {
             builder.setContentTitle(context.getString(R.string.app_name))
                     .setContentText(context.getString(R.string.apply_on_boot_text, seconds))
                     .setSmallIcon(Prefs.getBoolean("materialicon", false, context) ?
-                            R.mipmap.ic_launcher_material : R.mipmap.ic_launcher)
+                            R.mipmap.ic_launcher_material : R.mipmap.ic_launcher_foreground)
                     .addAction(0, context.getString(R.string.cancel), cancelIntent)
                     .setAutoCancel(true)
                     .setOngoing(true)
@@ -157,7 +157,7 @@ public class ApplyOnBoot {
         if (!hideNotification) {
             builderComplete.setContentTitle(context.getString(R.string.app_name))
                     .setSmallIcon(Prefs.getBoolean("materialicon", false, context) ?
-                            R.mipmap.ic_launcher_material : R.mipmap.ic_launcher)
+                            R.mipmap.ic_launcher_material : R.mipmap.ic_launcher_foreground)
                     .setContentIntent(contentIntent);
         }
 
