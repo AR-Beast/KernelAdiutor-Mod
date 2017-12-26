@@ -110,6 +110,9 @@ public class CPUFragment extends RecyclerViewFragment {
         freqInit(items);
         if (Misc.hasMcPowerSaving()) {
             mcPowerSavingInit(items);
+            
+        if (Misc.hasZukOverclock()) {
+            ZukOverclockInit(items);
         }
         if (Misc.hasPowerSavingWq()) {
             powerSavingWqInit(items);
@@ -366,6 +369,21 @@ public class CPUFragment extends RecyclerViewFragment {
         });
 
         items.add(powerSavingWq);
+    }
+    
+   private void ZukOverclockInit(List<RecyclerViewItem> items) {
+        SwitchView zukoverclock = new SwitchView();
+        zukoverclock.setTitle(getString(R.string.zoc));
+        zukoverclock.setSummary(getString(R.string.zoc_summary));
+        zukoverclock.setChecked(Misc.isZukOverclockEnabled());
+        zukoverclock.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableZukOverclock(isChecked, getActivity());
+            }
+        });
+
+        items.add(zukoverclock);
     }
 
     private void cfsSchedulerInit(List<RecyclerViewItem> items) {
