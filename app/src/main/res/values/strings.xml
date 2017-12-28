@@ -175,6 +175,8 @@
     <string name="aggressive">Aggressive</string>
     <string name="zoc">Zuk OverClock</string>
     <string name="zoc_summary">Allow the CPU to be Overclocked (>2150MHz )</string>
+    <string name="fpb">FingerPrint Boost</string>
+    <string name="fpb_summary">This will boost your minimum CPU speed if you touch the fingerprint sensor.</string>
     <string name="pewq">Power Efficient WorkQueues</string>
     <string name="power_saving_wq">Schedule workqueues on awake CPUs to save power.</string>
     <string name="cfs_scheduler_policy">CFS Scheduler Policy</string>

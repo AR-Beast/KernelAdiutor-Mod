@@ -110,7 +110,7 @@ public class CPUFragment extends RecyclerViewFragment {
         freqInit(items);
         if (Misc.hasMcPowerSaving()) {
             mcPowerSavingInit(items);
-            
+        }
         if (Misc.hasZukOverclock()) {
             ZukOverclockInit(items);
         }
@@ -125,6 +125,9 @@ public class CPUFragment extends RecyclerViewFragment {
         }
         if (CPUBoost.supported()) {
             cpuBoostInit(items);
+        }
+        if (Misc.hasFPB()) {
+            fpBoostInit(items);
         }
         if (Misc.hasCpuTouchBoost()) {
             cpuTouchBoostInit(items);
@@ -624,6 +627,20 @@ public class CPUFragment extends RecyclerViewFragment {
         });
 
         items.add(touchBoost);
+    }
+   private void  fpBoostInit(List<RecyclerViewItem> items) {
+        SwitchView fpboost = new SwitchView();
+        fpboost.setTitle(getString(R.string.fpb));
+        fpboost.setSummary(getString(R.string.fpb_summary));
+        fpboost.setChecked(Misc.isFPBEnabled());
+        fpboost.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableFPB(isChecked, getActivity());
+            }
+        });
+
+        items.add(fpboost);
     }
 
     @Override

@@ -46,6 +46,7 @@ public class Misc {
     private static final String CPU_QUIET_CURRENT_GOVERNOR = CPU_QUIET + "/current_governor";
 
     private static final String CPU_TOUCH_BOOST = "/sys/module/msm_performance/parameters/touchboost";
+    private static final String FP_BOOST = "/sys/kernel/fp_boost/enabled";
     
     private static final String ZUK_OC = "/sys/module/msm_performance/parameters/overfreq";
     
@@ -115,6 +116,18 @@ public class Misc {
     
     public static void enableZukOverclock(boolean enable, Context context) {
         run(Control.write(enable ? "1" : "0", ZUK_OC), ZUK_OC, context);
+    }
+    
+   public static boolean hasFPB() {
+        return Utils.existFile(FP_BOOST);
+    }  
+  
+    public static boolean isFPBEnabled() {
+        return Utils.readFile(FP_BOOST).equals("1");
+    }
+    
+    public static void enableFPB(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", FP_BOOST), FP_BOOST, context);
     }
     public static void setCFSScheduler(String value, Context context) {
         run(Control.write(value, CPU_CURRENT_CFS_SCHEDULER), CPU_CURRENT_CFS_SCHEDULER, context);
