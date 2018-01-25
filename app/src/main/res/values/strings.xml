@@ -585,6 +585,8 @@
     <string name="charge_rate">Quick Charge</string>
     <string name="charging_current">Quick Charge Max Current</string>
     <string name="charging_current_summary">Set the maximum charging current which quick charge can utilize from AC outlet.</string>
+    <string name="fastchg_current">QC 3.0 Current Control</string>
+    <string name="fastchg_current_summary">Set the maximum charging current which QC 3.0 can utilize from AC outlet. Warning using beyond 2400ma may damage your device.</string>
     <string name="usb_charging_current">USB Current</string>
     <string name="usb_charging_current_summary">Set the constant USB charging current which quick charge can utilize from USB outlet.</string>
     <string name="charge_profile">Charge Speed</string>

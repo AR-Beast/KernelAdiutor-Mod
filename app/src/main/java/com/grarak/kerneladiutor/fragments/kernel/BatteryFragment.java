@@ -67,6 +67,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             blxInit(items);
         }
         chargeRateInit(items);
+        fastchgCurrentInit(items);
     }
 
     @Override
@@ -136,6 +137,30 @@ public class BatteryFragment extends RecyclerViewFragment {
 
         items.add(blx);
     }
+       
+      private void fastchgCurrentInit(List<RecyclerViewItem> items) {
+      if (Battery.hasfastchgCurrent()) {
+            SeekBarView fastchgCurrent = new SeekBarView();
+            fastchgCurrent.setTitle(getString(R.string.fastchg_current));
+            fastchgCurrent.setSummary(getString(R.string.fastchg_current_summary));
+            fastchgCurrent.setUnit(getString(R.string.ma));
+            fastchgCurrent.setMax(3000);
+            fastchgCurrent.setMin(100);
+            fastchgCurrent.setOffset(10);
+            fastchgCurrent.setProgress(Battery.getfastchgCurrent() / 10 - 10);
+            fastchgCurrent.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    Battery.setfastchgCurrent((position + 10) * 10, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+             items.add(fastchgCurrent);
+        }}
 
     private void chargeRateInit(List<RecyclerViewItem> items) {
         CardView chargeRateCard = new CardView(getActivity());
