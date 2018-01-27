@@ -43,7 +43,7 @@ public class Battery {
     private static final String CHARGE_RATE = "/sys/kernel/Quick_Charge";
     private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/QC_Toggle";
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
-    private static final String FASTCHG_CURRENT = "sys/module/qpnp_smbcharger/parameters/fastchg_custom_current";
+    private static final String FASTCHG_CURRENT = "/sys/kernel/FC/custom_current";
     private static final String DYNAMIC_CURRENT = "sys/class/power_supply/battery/current_now";
     private static final String CHARGING = "sys/class/power_supply/battery/status";
     private static final String USB_CUSTOM_CURRENT = CHARGE_RATE + "/USB_Current";
