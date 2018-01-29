@@ -49,6 +49,7 @@ public class Misc {
     private static final String FP_BOOST = "/sys/kernel/fp_boost/enabled";
     
     private static final String ZUK_OC = "/sys/module/msm_performance/parameters/overfreq";
+    private static final String WAKEUP_BOOST = "sys/module/devfreq/parameters/wb";
     
     private static String[] sAvailableCFSSchedulers;
     private static String[] sCpuQuietAvailableGovernors;
@@ -116,6 +117,18 @@ public class Misc {
     
     public static void enableZukOverclock(boolean enable, Context context) {
         run(Control.write(enable ? "1" : "0", ZUK_OC), ZUK_OC, context);
+    }
+    
+     public static boolean hasWakeup_boost() {
+        return Utils.existFile(WAKEUP_BOOST);
+    }  
+  
+    public static boolean isWakeup_boost_enabled() {
+        return Utils.readFile(WAKEUP_BOOST).equals("1");
+    }
+    
+    public static void enableWakeup_boost(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", WAKEUP_BOOST), WAKEUP_BOOST, context);
     }
     
    public static boolean hasFPB() {

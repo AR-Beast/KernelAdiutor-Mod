@@ -114,6 +114,9 @@ public class CPUFragment extends RecyclerViewFragment {
         if (Misc.hasZukOverclock()) {
             ZukOverclockInit(items);
         }
+        if (Misc.hasWakeup_boost()) {
+            Wakeup_boostInit(items);
+        }
         if (Misc.hasPowerSavingWq()) {
             powerSavingWqInit(items);
         }
@@ -373,7 +376,21 @@ public class CPUFragment extends RecyclerViewFragment {
 
         items.add(powerSavingWq);
     }
-    
+   private void Wakeup_boostInit(List<RecyclerViewItem> items) {
+        SwitchView wakeup_boost = new SwitchView();
+        wakeup_boost.setTitle(getString(R.string.wakeup_boost));
+        wakeup_boost.setSummary(getString(R.string.wakeup_boost_summary));
+        wakeup_boost.setChecked(Misc.isWakeup_boost_enabled());
+        wakeup_boost.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableWakeup_boost(isChecked, getActivity());
+            }
+        });
+
+        items.add(wakeup_boost);
+    }
+
    private void ZukOverclockInit(List<RecyclerViewItem> items) {
         SwitchView zukoverclock = new SwitchView();
         zukoverclock.setTitle(getString(R.string.zoc));
