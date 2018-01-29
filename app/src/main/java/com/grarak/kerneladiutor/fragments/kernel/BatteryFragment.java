@@ -137,8 +137,24 @@ public class BatteryFragment extends RecyclerViewFragment {
 
         items.add(blx);
     }
-       
-      private void fastchgCurrentInit(List<RecyclerViewItem> items) {
+    private void fastchgCurrentInit(List<RecyclerViewItem> items) {
+        CardView fastchargeCard = new CardView(getActivity());
+        fastchargeCard.setTitle(getString(R.string.fc_switch));
+
+        if (Battery.hasFCEnable()) {
+            SwitchView fcswitch = new SwitchView();
+            fcswitch.setSummary(getString(R.string.fc_switch_summary));
+            fcswitch.setChecked(Battery.isFCEnabled());
+            fcswitch.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+                @Override
+                public void onChanged(SwitchView switchView, boolean isChecked) {
+                    Battery.enableFC(isChecked, getActivity());
+                }
+            });
+
+            fastchargeCard.addItem(fcswitch);
+        }
+        
       if (Battery.hasfastchgCurrent()) {
             SeekBarView fastchgCurrent = new SeekBarView();
             fastchgCurrent.setTitle(getString(R.string.fastchg_current));
@@ -159,8 +175,12 @@ public class BatteryFragment extends RecyclerViewFragment {
                 }
             });
 
-             items.add(fastchgCurrent);
-        }}
+             fastchargeCard.addItem(fastchgCurrent);
+        }
+       if (fastchargeCard.size() > 0) {
+            items.add(fastchargeCard);
+        }
+        }
 
     private void chargeRateInit(List<RecyclerViewItem> items) {
         CardView chargeRateCard = new CardView(getActivity());

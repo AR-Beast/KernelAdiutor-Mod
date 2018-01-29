@@ -43,7 +43,8 @@ public class Battery {
     private static final String CHARGE_RATE = "/sys/kernel/Quick_Charge";
     private static final String CHARGE_RATE_ENABLE = CHARGE_RATE + "/QC_Toggle";
     private static final String CUSTOM_CURRENT = CHARGE_RATE + "/custom_current";
-    private static final String FASTCHG_CURRENT = "/sys/kernel/FC/custom_current";
+    private static final String FC_SWITCH = "/sys/kernel/Fast_Charge/FC_Switch";
+    private static final String FASTCHG_CURRENT = "/sys/kernel/Fast_Charge/custom_current";
     private static final String DYNAMIC_CURRENT = "sys/class/power_supply/battery/current_now";
     private static final String CHARGING = "sys/class/power_supply/battery/status";
     private static final String USB_CUSTOM_CURRENT = CHARGE_RATE + "/USB_Current";
@@ -135,6 +136,17 @@ public class Battery {
 
     public static boolean hasChargeRateEnable() {
         return Utils.existFile(CHARGE_RATE_ENABLE);
+    }
+    public static void enableFC(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", FC_SWITCH), FC_SWITCH, context);
+    }
+
+    public static boolean isFCEnabled() {
+        return Utils.readFile(FC_SWITCH).equals("1");
+    }
+
+    public static boolean hasFCEnable() {
+        return Utils.existFile(FC_SWITCH);
     }
 
     public static void setBlx(int value, Context context) {
