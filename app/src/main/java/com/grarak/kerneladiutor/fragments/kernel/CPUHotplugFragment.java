@@ -2416,7 +2416,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             aioHotplugCard.addItem(LITTLEMaxCpus);
         }
         
-         if (AiOHotplug.hasSuspendedCores()) {
+         if (AiOHotplug.hasSuspended()) {
             SwitchView suspendedCores = new SwitchView();
             suspendedCores.setTitle(getString(R.string.screen_off_single_cpu));
             suspendedCores.setSummary(getString(R.string.screen_off_single_cpu_summary));
@@ -2429,6 +2429,28 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             });
 
             aioHotplugCard.addItem(suspendedCores);
+        }
+        
+        if (AiOHotplug.hasSuspendedCores()) {
+            List<String> list = new ArrayList<>();
+            SeekBarView SuspendedMaxCpus = new SeekBarView();
+            SuspendedMaxCpus.setTitle(getString(R.string.max_cpu_suspened));
+            SuspendedMaxCpus.setSummary(getString(R.string.max_cpu_suspened_summary));
+            SuspendedMaxCpus.setMax(CPUFreq.getCpuCount());
+            SuspendedMaxCpus.setMin(1);
+            SuspendedMaxCpus.setProgress(AiOHotplug.getSuspendedCores() - 1);
+            SuspendedMaxCpus.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    AiOHotplug.setSuspendedCores(position, getActivity());
+                }
+            });
+
+            aioHotplugCard.addItem(SuspendedMaxCpus);
         }
 
         if (aioHotplugCard.size() > 0) {

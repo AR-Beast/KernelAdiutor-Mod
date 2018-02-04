@@ -353,6 +353,8 @@
     <string name="max_cpu_online_big_summary">Maximum number of big CPUs that will be online.</string>
     <string name="max_cpu_online_little">Maximum LITTLE CPUs Online</string>
     <string name="max_cpu_online_little_summary">Maximum number of LITTLE CPUs that will be online.</string>
+    <string name="max_cpu_suspened">Maximum Suspended CPUs</string>
+    <string name="max_cpu_suspened_summary">Maximum number of CPUs that will be online while screen is off.</string>
 
     <!--Thermal-->
     <string name="thermal_info">Use only one thermal driver from the following options, using more at the same time may cause unexpected behavior.</string>

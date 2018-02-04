@@ -15,6 +15,7 @@ public class AiOHotplug {
     private static final String PARENT = "/sys/kernel/AiO_HotPlug";
     private static final String TOGGLE = PARENT + "/toggle";
     private static final String SUSPENDED = PARENT + "/suspended";
+    private static final String SUSPENDED_CORES = PARENT + "/suspended_cores";
     private static final String CORES = PARENT + "/cores";
     private static final String BIG_CORES = PARENT + "/big_cores";
     private static final String LITTLE_CORES = PARENT + "/LITTLE_cores";
@@ -41,6 +42,18 @@ public class AiOHotplug {
 
     public static boolean hasBigCores() {
         return Utils.existFile(BIG_CORES);
+    }
+
+    public static void setSuspendedCores(int cores, Context context) {
+        run(Control.write(String.valueOf(cores), SUSPENDED_CORES), SUSPENDED_CORES, context);
+    }
+
+    public static int getSuspendedCores() {
+        return Utils.strToInt(Utils.readFile(SUSPENDED_CORES));
+    }
+
+    public static boolean hasSuspendedCores() {
+        return Utils.existFile(SUSPENDED_CORES);
     }
 
     public static void setCores(int cores, Context context) {
@@ -75,7 +88,7 @@ public class AiOHotplug {
         return Utils.readFile(SUSPENDED).equals("1");
     }
 
-    public static boolean hasSuspendedCores() {
+    public static boolean hasSuspended() {
         return Utils.existFile(SUSPENDED);
     }
 
